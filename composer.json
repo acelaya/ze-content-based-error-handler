@@ -33,5 +33,15 @@
         "psr-4": {
             "AcelayaTest\\Expressive\\": "test"
         }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --coverage-clover build/clover.xml",
+        "pretty-test": "phpunit --coverage-html build/coverage"
     }
 }
