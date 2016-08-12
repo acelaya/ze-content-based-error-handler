@@ -27,9 +27,9 @@ class ContentBasedErrorHandlerFactory
     public function __invoke(ContainerInterface $container)
     {
         $errorHandlerManager = $container->get(ErrorHandlerManager::class);
-        $logMessageBuilder = $container->get(LogMessageBuilderInterface::class);
         $logger = $container->has(LoggerInterface::class) ? $container->get(LoggerInterface::class) : new NullLogger();
+        $logMessageBuilder = $container->get(LogMessageBuilderInterface::class);
 
-        return new ContentBasedErrorHandler($errorHandlerManager, $logMessageBuilder, $logger);
+        return new ContentBasedErrorHandler($errorHandlerManager, $logger, $logMessageBuilder);
     }
 }
