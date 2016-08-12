@@ -58,7 +58,24 @@ return [
 ];
 ```
 
-The **plugins** block is the one consumed by the plugin manager. For more information on how plugin managers work,read [this](https://docs.zendframework.com/zend-servicemanager/plugin-managers/).
+> The **plugins** block is the one consumed by the plugin manager. For more information on how plugin managers work,read [this](https://docs.zendframework.com/zend-servicemanager/plugin-managers/).
+
+In order to use the built-in ConfigProvider, create a config file with this contents:
+
+```php
+<?php
+return (new Acelaya\Expressive\ConfigProvider())->__invoke();
+```
+
+If your are using Expressive's ConfigManager ([mtymek/expressive-config-manager](https://github.com/mtymek/expressive-config-manager)), you can just provide the class name to it like this:
+
+```php
+return (new Zend\Expressive\ConfigManager([
+    Acelaya\Expressive\ConfigProvider::class,
+    // [...]
+    new ZendConfigProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
+], 'data/cache/app_config.php'))->getMergedConfig();
+```
 
 ### Override configuration
 
