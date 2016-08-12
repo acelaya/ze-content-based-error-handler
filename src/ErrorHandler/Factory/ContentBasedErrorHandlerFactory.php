@@ -13,7 +13,6 @@ use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
 class ContentBasedErrorHandlerFactory
 {
-
     /**
      * Create an object
      *
