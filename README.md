@@ -25,7 +25,7 @@ Use composer to install this package
 
 ### Usage
 
-This package includes an error handler, the `Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler`, that can be used to replace default Zend Expressive implementations.
+This package includes an error handler, the `Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler`, that can be used to replace default Zend Expressive implementations.
 
 It composes a plugin manager that fetches a concrete error handler at runtime, based on the Request's `Accept` header. Thus, you can use the Expressive's `TemplatedErrorHandler` to dispatch **text/html** request errors, Stratiglity's `FinalHandler` for **text/plain** errors, etc.
 
@@ -64,14 +64,14 @@ In order to use the built-in ConfigProvider, create a config file with this cont
 
 ```php
 <?php
-return (new Acelaya\Expressive\ConfigProvider())->__invoke();
+return (new Acelaya\ExpressiveErrorHandler\ConfigProvider())->__invoke();
 ```
 
 If your are using Expressive's ConfigManager ([mtymek/expressive-config-manager](https://github.com/mtymek/expressive-config-manager)), you can just provide the class name to it like this:
 
 ```php
 return (new Zend\Expressive\ConfigManager([
-    Acelaya\Expressive\ConfigProvider::class,
+    Acelaya\ExpressiveErrorHandler\ConfigProvider::class,
     // [...]
     new ZendConfigProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
 ], 'data/cache/app_config.php'))->getMergedConfig();
@@ -132,8 +132,8 @@ This package allows to provided a psr-3 logger to the `ContentBasedErrorHandler`
 
 By default a `Psr\Log\NullLogger` is used, so no errors will be logged, but if a logger is registered under the `Psr\Log\LoggerInterface` service name, it will be injected in the `ContentBasedErrorHandler` when created.
 
-The logged message can be customized too. The `ContentBasedErrorHandler` expects an object implementing `Acelaya\Expressive\Log\LogMessageBuilderInterface` to be injected on it.
+The logged message can be customized too. The `ContentBasedErrorHandler` expects an object implementing `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` to be injected on it.
 
-A base implementation is provided, the `Acelaya\Expressive\Log\BasicMessageBuilder`, which basically logs the message "Error occurred while dispatching request" and appends the error on a new line.
+A base implementation is provided, the `Acelaya\ExpressiveErrorHandler\Log\BasicMessageBuilder`, which basically logs the message "Error occurred while dispatching request" and appends the error on a new line.
 
-You can easily override that implementation by implementing the interface and registering the service with the `Acelaya\Expressive\Log\LogMessageBuilderInterface` name.
+You can easily override that implementation by implementing the interface and registering the service with the `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` name.

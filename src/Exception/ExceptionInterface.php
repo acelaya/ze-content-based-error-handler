@@ -1,5 +1,5 @@
 <?php
-namespace Acelaya\Expressive\Exception;
+namespace Acelaya\ExpressiveErrorHandler\Exception;
 
 interface ExceptionInterface
 {

@@ -1,9 +1,9 @@
 <?php
-namespace AcelayaTest\Expressive\ErrorHandler;
+namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler;
 
-use Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
-use Acelaya\Expressive\Log\BasicLogMessageBuilder;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Log\NullLogger;
 use Zend\Diactoros\Response;
@@ -66,7 +66,7 @@ class ContentBasedErrorHandlerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Acelaya\Expressive\Exception\InvalidArgumentException
+     * @expectedException \Acelaya\ExpressiveErrorHandler\Exception\InvalidArgumentException
      */
     public function ifNoErrorHandlerIsFoundAnExceptionIsThrown()
     {

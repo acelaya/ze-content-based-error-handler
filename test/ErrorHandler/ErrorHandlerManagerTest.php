@@ -1,7 +1,7 @@
 <?php
-namespace AcelayaTest\Expressive\ErrorHandler;
+namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler;
 
-use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\ServiceManager\ServiceManager;
 

@@ -1,5 +1,5 @@
 <?php
-namespace Acelaya\Expressive\ErrorHandler;
+namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 
 use Interop\Container\ContainerInterface;
 
