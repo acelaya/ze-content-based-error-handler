@@ -3,7 +3,9 @@ namespace AcelayaTest\Expressive\ErrorHandler;
 
 use Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler;
 use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
+use Acelaya\Expressive\Log\BasicLogMessageBuilder;
 use PHPUnit_Framework_TestCase as TestCase;
+use Psr\Log\NullLogger;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\ServiceManager\ServiceManager;
@@ -22,7 +24,7 @@ class ContentBasedErrorHandlerTest extends TestCase
                 'text/html' => [$this, 'factory'],
                 'application/json' => [$this, 'factory'],
             ],
-        ]));
+        ]), new NullLogger(), new BasicLogMessageBuilder());
     }
 
     public function factory($container, $name)
@@ -68,7 +70,11 @@ class ContentBasedErrorHandlerTest extends TestCase
      */
     public function ifNoErrorHandlerIsFoundAnExceptionIsThrown()
     {
-        $this->errorHandler = new ContentBasedErrorHandler(new ErrorHandlerManager(new ServiceManager(), []));
+        $this->errorHandler = new ContentBasedErrorHandler(
+            new ErrorHandlerManager(new ServiceManager(), []),
+            new NullLogger(),
+            new BasicLogMessageBuilder()
+        );
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
         $this->errorHandler->__invoke($request, new Response());
     }

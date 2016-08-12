@@ -5,7 +5,10 @@ use Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler;
 use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
 use Acelaya\Expressive\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
 use Acelaya\Expressive\ErrorHandler\Factory\ErrorHandlerManagerFactory;
+use Acelaya\Expressive\Log\BasicLogMessageBuilder;
+use Acelaya\Expressive\Log\LogMessageBuilderInterface;
 use Zend\Expressive\Container\TemplatedErrorHandlerFactory;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Stratigility\FinalHandler;
 
 class ConfigProvider
@@ -24,6 +27,10 @@ class ConfigProvider
             'factories' => [
                 ErrorHandlerManager::class => ErrorHandlerManagerFactory::class,
                 ContentBasedErrorHandler::class => ContentBasedErrorHandlerFactory::class,
+                BasicLogMessageBuilder::class => InvokableFactory::class,
+            ],
+            'aliases' => [
+                LogMessageBuilderInterface::class => BasicLogMessageBuilder::class,
             ],
         ];
     }
@@ -31,7 +38,6 @@ class ConfigProvider
     private function createErrorHandlerConfig()
     {
         return [
-            'log' => [],
             'plugins' => [
                 'invokables' => [
                     'text/plain' => FinalHandler::class,

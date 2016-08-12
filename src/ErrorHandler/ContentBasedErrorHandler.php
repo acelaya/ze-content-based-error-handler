@@ -2,10 +2,10 @@
 namespace Acelaya\Expressive\ErrorHandler;
 
 use Acelaya\Expressive\Exception\InvalidArgumentException;
+use Acelaya\Expressive\Log\LogMessageBuilderInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 class ContentBasedErrorHandler implements ErrorHandlerInterface
 {
@@ -19,16 +19,25 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var LogMessageBuilderInterface
+     */
+    private $logMessageBuilder;
 
     /**
      * ContentBasedErrorHandler constructor.
      * @param ErrorHandlerManagerInterface|ErrorHandlerManager $errorHandlerManager
+     * @param LogMessageBuilderInterface $logMessageBuilder
      * @param LoggerInterface $logger
      */
-    public function __construct(ErrorHandlerManagerInterface $errorHandlerManager, LoggerInterface $logger = null)
-    {
+    public function __construct(
+        ErrorHandlerManagerInterface $errorHandlerManager,
+        LoggerInterface $logger,
+        LogMessageBuilderInterface $logMessageBuilder
+    ) {
         $this->errorHandlerManager = $errorHandlerManager;
-        $this->logger = $logger ?: new NullLogger();
+        $this->logger = $logger;
+        $this->logMessageBuilder = $logMessageBuilder;
     }
 
     /**
@@ -43,7 +52,7 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
     {
         // Try to get an error handler for provided request accepted type
         $errorHandler = $this->resolveErrorHandlerFromAcceptHeader($request);
-        $this->logger->error($this->buildLogMessage($err));
+        $this->logger->error($this->logMessageBuilder->buildMessage($request, $response, $err));
         return $errorHandler($request, $response, $err);
     }
 
@@ -78,19 +87,5 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
             implode('", "', $accepts),
             self::DEFAULT_CONTENT
         ));
-    }
-
-    /**
-     * @param string|\Exception|null $err
-     * @return string
-     */
-    protected function buildLogMessage($err = null)
-    {
-        $base = 'Error occurred while dispatching request';
-        if (! isset($err)) {
-            return $base;
-        }
-
-        return $base . ': ' . PHP_EOL . $err;
     }
 }
