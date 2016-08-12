@@ -1,5 +1,12 @@
 # Zend Expressive ContentBasedErrorHandler
 
+[![Build Status](https://travis-ci.org/acelaya/ze-content-based-error-handler.svg?branch=master)](https://travis-ci.org/acelaya/ze-content-based-error-handler)
+[![Code Coverage](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/acelaya/ze-content-based-error-handler/v/stable.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![Total Downloads](https://poser.pugx.org/acelaya/ze-content-based-error-handler/downloads.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![License](https://poser.pugx.org/acelaya/ze-content-based-error-handler/license.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+
 A Zend Expressive error handler which allows to implement different strategies based on the accepted content-types.
 
 ### Context
