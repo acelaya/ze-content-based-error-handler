@@ -26,12 +26,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Acelaya\\Expressive\\": "src"
+            "Acelaya\\ExpressiveErrorHandler\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AcelayaTest\\Expressive\\": "test"
+            "AcelayaTest\\ExpressiveErrorHandler\\": "test"
         }
     },
     "scripts": {

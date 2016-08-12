@@ -1,5 +1,5 @@
 <?php
-namespace Acelaya\Expressive\Log;
+namespace Acelaya\ExpressiveErrorHandler\Log;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

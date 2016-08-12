@@ -1,8 +1,8 @@
 <?php
-namespace Acelaya\Expressive\ErrorHandler;
+namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 
-use Acelaya\Expressive\Exception\InvalidArgumentException;
-use Acelaya\Expressive\Log\LogMessageBuilderInterface;
+use Acelaya\ExpressiveErrorHandler\Exception\InvalidArgumentException;
+use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;

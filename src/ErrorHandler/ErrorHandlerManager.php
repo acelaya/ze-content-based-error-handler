@@ -1,5 +1,5 @@
 <?php
-namespace Acelaya\Expressive\ErrorHandler;
+namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;

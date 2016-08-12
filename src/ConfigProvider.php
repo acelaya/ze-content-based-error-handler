@@ -1,12 +1,12 @@
 <?php
-namespace Acelaya\Expressive;
+namespace Acelaya\ExpressiveErrorHandler;
 
-use Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
-use Acelaya\Expressive\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
-use Acelaya\Expressive\ErrorHandler\Factory\ErrorHandlerManagerFactory;
-use Acelaya\Expressive\Log\BasicLogMessageBuilder;
-use Acelaya\Expressive\Log\LogMessageBuilderInterface;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ErrorHandlerManagerFactory;
+use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
+use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use Zend\Expressive\Container\TemplatedErrorHandlerFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\Stratigility\FinalHandler;

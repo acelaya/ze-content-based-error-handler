@@ -1,9 +1,9 @@
 <?php
-namespace Acelaya\Expressive\ErrorHandler\Factory;
+namespace Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory;
 
-use Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
-use Acelaya\Expressive\Log\LogMessageBuilderInterface;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Psr\Log\LoggerInterface;

@@ -1,7 +1,7 @@
 <?php
-namespace Acelaya\Expressive\ErrorHandler\Factory;
+namespace Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory;
 
-use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;

@@ -1,10 +1,10 @@
 <?php
-namespace AcelayaTest\Expressive\ErrorHandler\Factory;
+namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler\Factory;
 
-use Acelaya\Expressive\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\Expressive\ErrorHandler\ErrorHandlerManager;
-use Acelaya\Expressive\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
-use Acelaya\Expressive\Log\LogMessageBuilderInterface;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
+use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use PHPUnit_Framework_TestCase as TestCase;
 use Psr\Log\LoggerInterface;
 use Zend\ServiceManager\ServiceManager;

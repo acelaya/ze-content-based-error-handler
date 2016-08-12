@@ -1,7 +1,7 @@
 <?php
-namespace AcelayaTest\Expressive;
+namespace AcelayaTest\ExpressiveErrorHandler;
 
-use Acelaya\Expressive\ConfigProvider;
+use Acelaya\ExpressiveErrorHandler\ConfigProvider;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class ConfigProviderTest extends TestCase
