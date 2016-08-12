@@ -7,11 +7,21 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->createDependenciesConfig(),
+            'error_handler' => $this->createErrorHandlerConfig(),
         ];
     }
 
     private function createDependenciesConfig()
     {
-        return [];
+        return [
+
+        ];
+    }
+
+    private function createErrorHandlerConfig()
+    {
+        return [
+            'plugins' => [],
+        ];
     }
 }
