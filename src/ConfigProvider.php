@@ -30,6 +30,7 @@ class ConfigProvider
                 BasicLogMessageBuilder::class => InvokableFactory::class,
             ],
             'aliases' => [
+                'Zend\Expressive\FinalHandler' => ContentBasedErrorHandler::class,
                 LogMessageBuilderInterface::class => BasicLogMessageBuilder::class,
             ],
         ];
