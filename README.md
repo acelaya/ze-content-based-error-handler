@@ -8,7 +8,7 @@ This package has been created following this article https://blog.alejandrocelay
 
 On it, I demonstrate how to implement an strategy-based system which generates different error responses by taking into account the request's `Accept` header.
 
-After writing the article I have decided to create this package, so that everybody can install and use the solution on their own projects.
+After writing the article I have decided to create this package, so that everybody can install and use the provided solution on their own projects.
 
 ### Installation
 
@@ -28,8 +28,88 @@ You can also provide your own implementations for other content-types, like **ap
 
 To get things easily working, a `ConfigProvider` is included, which automatically registers all the dependencies for the service container (including the `Zend\Expressive\ErroHandler` service).
 
-It also registers error handlers for html and plain text requests.
+It also preregisters error handlers for html and plain text requests (The `TemplatedErrorHandler` and the `FinalHandler` as mentioned before).
+
+```php
+<?php
+return [
+
+    'error_handler' => [
+        'plugins' => [
+            'invokables' => [
+                'text/plain' => FinalHandler::class,
+            ],
+            'factories' => [
+                'text/html' => TemplatedErrorHandlerFactory::class,
+            ],
+            'aliases' => [
+                'application/xhtml+xml' => 'text/html',
+            ],
+        ],
+    ],
+
+];
+```
+
+The **plugins** block is the one consumed by the plugin manager. For more information on how plugin managers work,read [this](https://docs.zendframework.com/zend-servicemanager/plugin-managers/).
 
 ### Override configuration
 
+If you need to provide override any of the content types, its as easy as defining the same plugin with a different value.
+
+For example, it is very likely that you want to use Expressive's `WhoopsErrorHandler` in development environments.
+
+Just define a local configuration file with this content and all the html requests will use it from now on:
+
+```php
+<?php
+return [
+
+    'error_handler' => [
+        'plugins' => [
+            'factories' => [
+                'text/html' => WhoopsErrorHandlerFactory::class,
+            ],
+        ],
+    ],
+
+];
+```
+
+You will probably need to define other error handlers for different content types. You can do it by using the same structure.
+
+```php
+<?php
+return [
+
+    'error_handler' => [
+        'plugins' => [
+            'invokables' => [
+                'application/json' => JsonErrorHandler::class,
+            ],
+            'factories' => [
+                'text/xml' => XmlErrorHandlerFactory::class,
+            ],
+            'aliases' => [
+                'application/x-json' => 'application/json',
+                'text/json' => 'application/json',
+            ],
+        ],
+    ],
+
+];
+```
+
+With this configuration, the `ContentBasedErrorHandler` will create at runtime the proper `JsonErroHandler` or `XmlErroHandler` to dispatch json or xml errors.
+
 ### Log errors
+
+This package allows to provided a psr-3 logger to the `ContentBasedErrorHandler` in order to get errors logged.
+
+By default a `Psr\Log\NullLogger` is used, so no errors will be logged, but if a logger is registered under the `Psr\Log\LoggerInterface` service name, it will be injected in the `ContentBasedErrorHandler` when created.
+
+The logged message can be customized too. The `ContentBasedErrorHandler` expects an object implementing `Acelaya\Expressive\Log\LogMessageBuilderInterface` to be injected on it.
+
+A base implementation is provided, the `Acelaya\Expressive\Log\BasicMessageBuilder`, which basically logs the message "Error occurred while dispatching request" and appends the error on a new line.
+
+You can easily override that implementation by implementing the interface and registering the service with the `Acelaya\Expressive\Log\LogMessageBuilderInterface` name.
