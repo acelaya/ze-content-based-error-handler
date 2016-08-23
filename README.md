@@ -7,7 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/acelaya/ze-content-based-error-handler/downloads.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
 [![License](https://poser.pugx.org/acelaya/ze-content-based-error-handler/license.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
 
-A Zend Expressive error handler which allows to implement different strategies based on the accepted content-types.
+A Zend Expressive error handler which allows to implement different strategies to render error responses based on the accepted content-types.
 
 ### Context
 
@@ -15,7 +15,7 @@ This package has been created following this article https://blog.alejandrocelay
 
 On it, I demonstrate how to implement an strategy-based system which generates different error responses by taking into account the request's `Accept` header.
 
-After writing the article I have decided to create this package, so that everybody can install and use the provided solution on their own projects.
+After writing the article I have decided to create this package, so that everybody can install and use the provided solution in their own projects.
 
 ### Installation
 
@@ -33,7 +33,7 @@ You can also provide your own implementations for other content-types, like **ap
 
 ### Provided configuration
 
-To get things easily working, a `ConfigProvider` is included, which automatically registers all the dependencies for the service container (including the `Zend\Expressive\ErroHandler` service).
+To get things easily working, a `ConfigProvider` is included, which automatically registers all the dependencies in the service container (including the `Zend\Expressive\ErroHandler` service).
 
 It also preregisters error handlers for html and plain text requests (The `TemplatedErrorHandler` and the `FinalHandler` as mentioned before).
 
@@ -42,6 +42,8 @@ It also preregisters error handlers for html and plain text requests (The `Templ
 return [
 
     'error_handler' => [
+        'default_content_type' => 'text/html',
+
         'plugins' => [
             'invokables' => [
                 'text/plain' => FinalHandler::class,
@@ -58,7 +60,7 @@ return [
 ];
 ```
 
-> The **plugins** block is the one consumed by the plugin manager. For more information on how plugin managers work,read [this](https://docs.zendframework.com/zend-servicemanager/plugin-managers/).
+> The **plugins** block is the one consumed by the plugin manager. For more information on how plugin managers work, read [this](https://docs.zendframework.com/zend-servicemanager/plugin-managers/).
 
 In order to use the built-in ConfigProvider, create a config file with this contents:
 
@@ -67,7 +69,7 @@ In order to use the built-in ConfigProvider, create a config file with this cont
 return (new Acelaya\ExpressiveErrorHandler\ConfigProvider())->__invoke();
 ```
 
-If your are using Expressive's ConfigManager ([mtymek/expressive-config-manager](https://github.com/mtymek/expressive-config-manager)), you can just provide the class name to it like this:
+If your are using the Expressive's ConfigManager ([mtymek/expressive-config-manager](https://github.com/mtymek/expressive-config-manager)), you can just pass the class name to it like this:
 
 ```php
 return (new Zend\Expressive\ConfigManager([
@@ -79,7 +81,7 @@ return (new Zend\Expressive\ConfigManager([
 
 ### Override configuration
 
-If you need to provide override any of the content types, its as easy as defining the same plugin with a different value.
+If you need to override any of the content types, its as easy as defining the same plugin with a different value.
 
 For example, it is very likely that you want to use Expressive's `WhoopsErrorHandler` in development environments.
 
@@ -124,16 +126,31 @@ return [
 ];
 ```
 
-With this configuration, the `ContentBasedErrorHandler` will create at runtime the proper `JsonErroHandler` or `XmlErroHandler` to dispatch json or xml errors.
+With this configuration, the `ContentBasedErrorHandler` will create the proper `JsonErroHandler` or `XmlErroHandler` at runtime, to dispatch json or xml errors.
+
+Similarly, you could need to override the default content type by setting the `default_content_type` property.
+
+```php
+<?php
+return [
+
+    'error_handler' => [
+        'default_content_type' => 'application/json',
+    ],
+
+];
+```
+
+This way, when no `Accept` header was provided from the client or none of the accepted content types is registered, the **application/json** content type will be used, instead of **text/html**, which is the default behavior.
 
 ### Log errors
 
-This package allows to provided a psr-3 logger to the `ContentBasedErrorHandler` in order to get errors logged.
+This package allows you to provided a psr-3 logger to the `ContentBasedErrorHandler`, in order to get errors logged.
 
 By default a `Psr\Log\NullLogger` is used, so no errors will be logged, but if a logger is registered under the `Psr\Log\LoggerInterface` service name, it will be injected in the `ContentBasedErrorHandler` when created.
 
 The logged message can be customized too. The `ContentBasedErrorHandler` expects an object implementing `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` to be injected on it.
 
-A base implementation is provided, the `Acelaya\ExpressiveErrorHandler\Log\BasicMessageBuilder`, which basically logs the message "Error occurred while dispatching request" and appends the error on a new line.
+A base implementation is provided, the `Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder`, which basically logs the message "Error occurred while dispatching request" and appends the error on a new line.
 
-You can easily override that implementation by implementing the interface and registering the service with the `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` name.
+You can easily override that by creating your own service implementing the interface, and registering it with the `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` name.
