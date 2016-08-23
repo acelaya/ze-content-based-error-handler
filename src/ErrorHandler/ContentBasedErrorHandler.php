@@ -9,6 +9,9 @@ use Psr\Log\LoggerInterface;
 
 class ContentBasedErrorHandler implements ErrorHandlerInterface
 {
+    /**
+     * @deprecated Inject the default content type to be used while creating this class
+     */
     const DEFAULT_CONTENT = 'text/html';
 
     /**
@@ -23,21 +26,28 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
      * @var LogMessageBuilderInterface
      */
     private $logMessageBuilder;
+    /**
+     * @var string
+     */
+    private $defaultContentType;
 
     /**
      * ContentBasedErrorHandler constructor.
      * @param ErrorHandlerManagerInterface|ErrorHandlerManager $errorHandlerManager
-     * @param LogMessageBuilderInterface $logMessageBuilder
      * @param LoggerInterface $logger
+     * @param LogMessageBuilderInterface $logMessageBuilder
+     * @param string $defaultContentType
      */
     public function __construct(
         ErrorHandlerManagerInterface $errorHandlerManager,
         LoggerInterface $logger,
-        LogMessageBuilderInterface $logMessageBuilder
+        LogMessageBuilderInterface $logMessageBuilder,
+        $defaultContentType = 'text/html'
     ) {
         $this->errorHandlerManager = $errorHandlerManager;
         $this->logger = $logger;
         $this->logMessageBuilder = $logMessageBuilder;
+        $this->defaultContentType = $defaultContentType;
     }
 
     /**
@@ -65,7 +75,7 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
     protected function resolveErrorHandlerFromAcceptHeader(Request $request)
     {
         // Try to find an error handler for one of the accepted content types
-        $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : self::DEFAULT_CONTENT;
+        $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : $this->defaultContentType;
         $accepts = explode(',', $accepts);
         foreach ($accepts as $accept) {
             if (! $this->errorHandlerManager->has($accept)) {
@@ -76,8 +86,8 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
         }
 
         // If it wasn't possible to find an error handler for accepted content type, use default one if registered
-        if ($this->errorHandlerManager->has(self::DEFAULT_CONTENT)) {
-            return $this->errorHandlerManager->get(self::DEFAULT_CONTENT);
+        if ($this->errorHandlerManager->has($this->defaultContentType)) {
+            return $this->errorHandlerManager->get($this->defaultContentType);
         }
 
         // It wasn't possible to find an error handler
@@ -85,7 +95,7 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
             'It wasn\'t possible to find an error handler for ["%s"] content types. '
             . 'Make sure you have registered at least the default "%s" content type',
             implode('", "', $accepts),
-            self::DEFAULT_CONTENT
+            $this->defaultContentType
         ));
     }
 }

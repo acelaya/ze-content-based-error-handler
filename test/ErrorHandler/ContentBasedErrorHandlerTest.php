@@ -78,4 +78,20 @@ class ContentBasedErrorHandlerTest extends TestCase
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
         $this->errorHandler->__invoke($request, new Response());
     }
+
+    /**
+     * @test
+     */
+    public function providedDefaultContentTypeIsUsed()
+    {
+        $this->errorHandler = new ContentBasedErrorHandler(new ErrorHandlerManager(new ServiceManager(), [
+            'factories' => [
+                'text/html' => [$this, 'factory'],
+                'application/json' => [$this, 'factory'],
+            ],
+        ]), new NullLogger(), new BasicLogMessageBuilder(), 'application/json');
+        $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
+        $result = $this->errorHandler->__invoke($request, new Response());
+        $this->assertEquals('application/json', $result);
+    }
 }

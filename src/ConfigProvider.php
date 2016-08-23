@@ -39,6 +39,8 @@ class ConfigProvider
     private function createErrorHandlerConfig()
     {
         return [
+            'default_content_type' => 'text/html',
+
             'plugins' => [
                 'invokables' => [
                     'text/plain' => FinalHandler::class,

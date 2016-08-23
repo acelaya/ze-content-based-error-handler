@@ -39,4 +39,26 @@ class ContentBasedErrorHandlerFactoryTest extends TestCase
         ]]));
         $this->assertInstanceOf(ContentBasedErrorHandler::class, $instance);
     }
+
+    /**
+     * @test
+     */
+    public function defaultContentTypeIsSetWhenDefined()
+    {
+        /** @var ContentBasedErrorHandler $instance */
+        $instance = $this->factory->__invoke(new ServiceManager(['services' => [
+            ErrorHandlerManager::class => $this->prophesize(ErrorHandlerManager::class)->reveal(),
+            LogMessageBuilderInterface::class => $this->prophesize(LogMessageBuilderInterface::class)->reveal(),
+            'config' => [
+                'error_handler' => [
+                    'default_content_type' => 'application/json',
+                ],
+            ],
+        ]]));
+
+        $ref = new \ReflectionObject($instance);
+        $prop = $ref->getProperty('defaultContentType');
+        $prop->setAccessible(true);
+        $this->assertEquals('application/json', $prop->getValue($instance));
+    }
 }
