@@ -42,6 +42,8 @@ It also preregisters error handlers for html and plain text requests (The `Templ
 return [
 
     'error_handler' => [
+        'default_content_type' => 'text/html',
+
         'plugins' => [
             'invokables' => [
                 'text/plain' => FinalHandler::class,
@@ -125,6 +127,21 @@ return [
 ```
 
 With this configuration, the `ContentBasedErrorHandler` will create the proper `JsonErroHandler` or `XmlErroHandler` at runtime, to dispatch json or xml errors.
+
+Similarly, you could need to override the default content type by setting the `default_content_type` property.
+
+```php
+<?php
+return [
+
+    'error_handler' => [
+        'default_content_type' => 'application/json',
+    ],
+
+];
+```
+
+This way, when no `Accept` header was provided from the client or none of the accepted content types is registered, the **application/json** content type will be used, instead of **text/html**, which is the default behavior.
 
 ### Log errors
 
