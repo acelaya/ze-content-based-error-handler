@@ -1,7 +1,7 @@
 <?php
 namespace Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory;
 
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
@@ -24,6 +24,6 @@ class ErrorHandlerManagerFactory
         $config = $container->has('config') ? $container->get('config') : [];
         $errorHandlerConfig = isset($config['error_handler']) ? $config['error_handler'] : [];
         $plugins = isset($errorHandlerConfig['plugins']) ? $errorHandlerConfig['plugins'] : [];
-        return new ErrorHandlerManager($container, $plugins);
+        return new ErrorResponseGeneratorManager($container, $plugins);
     }
 }

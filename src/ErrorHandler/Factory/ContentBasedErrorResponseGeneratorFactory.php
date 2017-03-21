@@ -1,8 +1,8 @@
 <?php
 namespace Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory;
 
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
 use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -11,7 +11,7 @@ use Psr\Log\NullLogger;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
-class ContentBasedErrorHandlerFactory
+class ContentBasedErrorResponseGeneratorFactory
 {
     /**
      * Create an object
@@ -28,11 +28,11 @@ class ContentBasedErrorHandlerFactory
         $config = $container->has('config') ? $container->get('config') : [];
         $ehConfig = isset($config['error_handler']) ? $config['error_handler'] : [];
 
-        $errorHandlerManager = $container->get(ErrorHandlerManager::class);
+        $errorHandlerManager = $container->get(ErrorResponseGeneratorManager::class);
         $logger = $container->has(LoggerInterface::class) ? $container->get(LoggerInterface::class) : new NullLogger();
         $logMessageBuilder = $container->get(LogMessageBuilderInterface::class);
 
-        return new ContentBasedErrorHandler(
+        return new ContentBasedErrorResponseGenerator(
             $errorHandlerManager,
             $logger,
             $logMessageBuilder,

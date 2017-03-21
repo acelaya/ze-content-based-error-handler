@@ -1,9 +1,9 @@
 <?php
 namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler\Factory;
 
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorResponseGeneratorFactory;
 use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -12,13 +12,13 @@ use Zend\ServiceManager\ServiceManager;
 class ContentBasedErrorHandlerFactoryTest extends TestCase
 {
     /**
-     * @var ContentBasedErrorHandlerFactory
+     * @var ContentBasedErrorResponseGeneratorFactory
      */
     protected $factory;
 
     public function setUp()
     {
-        $this->factory = new ContentBasedErrorHandlerFactory();
+        $this->factory = new ContentBasedErrorResponseGeneratorFactory();
     }
 
     /**
@@ -27,17 +27,17 @@ class ContentBasedErrorHandlerFactoryTest extends TestCase
     public function serviceIsCreated()
     {
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
-            ErrorHandlerManager::class => $this->prophesize(ErrorHandlerManager::class)->reveal(),
+            ErrorResponseGeneratorManager::class => $this->prophesize(ErrorResponseGeneratorManager::class)->reveal(),
             LogMessageBuilderInterface::class => $this->prophesize(LogMessageBuilderInterface::class)->reveal(),
         ]]));
-        $this->assertInstanceOf(ContentBasedErrorHandler::class, $instance);
+        $this->assertInstanceOf(ContentBasedErrorResponseGenerator::class, $instance);
 
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
-            ErrorHandlerManager::class => $this->prophesize(ErrorHandlerManager::class)->reveal(),
+            ErrorResponseGeneratorManager::class => $this->prophesize(ErrorResponseGeneratorManager::class)->reveal(),
             LogMessageBuilderInterface::class => $this->prophesize(LogMessageBuilderInterface::class)->reveal(),
             LoggerInterface::class => $this->prophesize(LoggerInterface::class)->reveal(),
         ]]));
-        $this->assertInstanceOf(ContentBasedErrorHandler::class, $instance);
+        $this->assertInstanceOf(ContentBasedErrorResponseGenerator::class, $instance);
     }
 
     /**
@@ -45,9 +45,9 @@ class ContentBasedErrorHandlerFactoryTest extends TestCase
      */
     public function defaultContentTypeIsSetWhenDefined()
     {
-        /** @var ContentBasedErrorHandler $instance */
+        /** @var ContentBasedErrorResponseGenerator $instance */
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
-            ErrorHandlerManager::class => $this->prophesize(ErrorHandlerManager::class)->reveal(),
+            ErrorResponseGeneratorManager::class => $this->prophesize(ErrorResponseGeneratorManager::class)->reveal(),
             LogMessageBuilderInterface::class => $this->prophesize(LogMessageBuilderInterface::class)->reveal(),
             'config' => [
                 'error_handler' => [

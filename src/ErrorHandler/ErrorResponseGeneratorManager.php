@@ -4,7 +4,7 @@ namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 
-class ErrorHandlerManager extends AbstractPluginManager implements ErrorHandlerManagerInterface
+class ErrorResponseGeneratorManager extends AbstractPluginManager implements ErrorResponseGeneratorManagerInterface
 {
     public function validate($instance)
     {

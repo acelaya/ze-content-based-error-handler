@@ -1,9 +1,9 @@
 <?php
 namespace Acelaya\ExpressiveErrorHandler;
 
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorResponseGeneratorFactory;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ErrorHandlerManagerFactory;
 use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
 use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
@@ -25,12 +25,12 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                ErrorHandlerManager::class => ErrorHandlerManagerFactory::class,
-                ContentBasedErrorHandler::class => ContentBasedErrorHandlerFactory::class,
+                ErrorResponseGeneratorManager::class => ErrorHandlerManagerFactory::class,
+                ContentBasedErrorResponseGenerator::class => ContentBasedErrorResponseGeneratorFactory::class,
                 BasicLogMessageBuilder::class => InvokableFactory::class,
             ],
             'aliases' => [
-                'Zend\Expressive\FinalHandler' => ContentBasedErrorHandler::class,
+                'Zend\Expressive\FinalHandler' => ContentBasedErrorResponseGenerator::class,
                 LogMessageBuilderInterface::class => BasicLogMessageBuilder::class,
             ],
         ];
