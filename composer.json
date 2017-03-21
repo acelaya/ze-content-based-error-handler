@@ -5,16 +5,18 @@
     "keywords": [
         "expressive",
         "zend",
+        "zf",
+        "zf3",
         "error handler"
     ],
     "require": {
         "php": "^5.6 || ^7.0",
         "zendframework/zend-servicemanager": "^3.0",
-        "zendframework/zend-expressive": "^1.0",
+        "zendframework/zend-expressive": "^2.0",
         "psr/log": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.0",
+        "phpunit/phpunit": "^5.0 || ^6.0",
         "squizlabs/php_codesniffer": "^2.3"
     },
     "license": "MIT",
@@ -41,7 +43,12 @@
         ],
         "cs": "phpcs",
         "cs-fix": "phpcbf",
-        "test": "phpunit --coverage-clover build/clover.xml",
+        "test": "phpunit --coverage-clover build/clover.xml --colors=always",
         "pretty-test": "phpunit --coverage-html build/coverage"
+    },
+    "extra": {
+        "zf": {
+            "config-provider": "Acelaya\\ExpressiveErrorHandler\\ConfigProvider"
+        }
     }
 }

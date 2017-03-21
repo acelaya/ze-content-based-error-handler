@@ -1,4 +1,4 @@
-# Zend Expressive ContentBasedErrorHandler
+# Zend Expressive ContentBasedErrorResponseGenerator
 
 [![Build Status](https://travis-ci.org/acelaya/ze-content-based-error-handler.svg?branch=master)](https://travis-ci.org/acelaya/ze-content-based-error-handler)
 [![Code Coverage](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
@@ -25,11 +25,11 @@ Use composer to install this package
 
 ### Usage
 
-This package includes an error handler, the `Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler`, that can be used to replace default Zend Expressive implementations.
+This package includes an error handler, the `Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator`, that can be used to replace default Zend Expressive implementations.
 
 It composes a plugin manager that fetches a concrete error handler at runtime, based on the Request's `Accept` header. Thus, you can use the Expressive's `TemplatedErrorHandler` to dispatch **text/html** request errors, Stratiglity's `FinalHandler` for **text/plain** errors, etc.
 
-You can also provide your own implementations for other content-types, like **application/json** or **text/xml**. The ContentBasedErrorHandler will automatically use the proper implementation.
+You can also provide your own implementations for other content-types, like **application/json** or **text/xml**. The ContentBasedErrorResponseGenerator will automatically use the proper implementation.
 
 ### Provided configuration
 
@@ -126,7 +126,7 @@ return [
 ];
 ```
 
-With this configuration, the `ContentBasedErrorHandler` will create the proper `JsonErroHandler` or `XmlErroHandler` at runtime, to dispatch json or xml errors.
+With this configuration, the `ContentBasedErrorResponseGenerator` will create the proper `JsonErroHandler` or `XmlErroHandler` at runtime, to dispatch json or xml errors.
 
 Similarly, you could need to override the default content type by setting the `default_content_type` property.
 
@@ -145,11 +145,11 @@ This way, when no `Accept` header was provided from the client or none of the ac
 
 ### Log errors
 
-This package allows you to provided a psr-3 logger to the `ContentBasedErrorHandler`, in order to get errors logged.
+This package allows you to provided a psr-3 logger to the `ContentBasedErrorResponseGenerator`, in order to get errors logged.
 
-By default a `Psr\Log\NullLogger` is used, so no errors will be logged, but if a logger is registered under the `Psr\Log\LoggerInterface` service name, it will be injected in the `ContentBasedErrorHandler` when created.
+By default a `Psr\Log\NullLogger` is used, so no errors will be logged, but if a logger is registered under the `Psr\Log\LoggerInterface` service name, it will be injected in the `ContentBasedErrorResponseGenerator` when created.
 
-The logged message can be customized too. The `ContentBasedErrorHandler` expects an object implementing `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` to be injected on it.
+The logged message can be customized too. The `ContentBasedErrorResponseGenerator` expects an object implementing `Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface` to be injected on it.
 
 A base implementation is provided, the `Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder`, which basically logs the message "Error occurred while dispatching request" and appends the error on a new line.
 

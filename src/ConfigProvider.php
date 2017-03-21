@@ -1,15 +1,16 @@
 <?php
 namespace Acelaya\ExpressiveErrorHandler;
 
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
-use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorResponseGeneratorFactory;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ErrorHandlerManagerFactory;
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\PlainTextResponseGeneratorFactory;
 use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
 use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
-use Zend\Expressive\Container\TemplatedErrorHandlerFactory;
+use Zend\Expressive\Container\ErrorResponseGeneratorFactory;
+use Zend\Expressive\Middleware\ErrorResponseGenerator;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\Stratigility\FinalHandler;
 
 class ConfigProvider
 {
@@ -25,12 +26,12 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                ErrorHandlerManager::class => ErrorHandlerManagerFactory::class,
-                ContentBasedErrorHandler::class => ContentBasedErrorHandlerFactory::class,
+                ErrorResponseGeneratorManager::class => ErrorHandlerManagerFactory::class,
+                ContentBasedErrorResponseGenerator::class => ContentBasedErrorResponseGeneratorFactory::class,
                 BasicLogMessageBuilder::class => InvokableFactory::class,
             ],
             'aliases' => [
-                'Zend\Expressive\FinalHandler' => ContentBasedErrorHandler::class,
+                ErrorResponseGenerator::class => ContentBasedErrorResponseGenerator::class,
                 LogMessageBuilderInterface::class => BasicLogMessageBuilder::class,
             ],
         ];
@@ -42,14 +43,12 @@ class ConfigProvider
             'default_content_type' => 'text/html',
 
             'plugins' => [
-                'invokables' => [
-                    'text/plain' => FinalHandler::class,
-                ],
                 'factories' => [
-                    ContentBasedErrorHandler::DEFAULT_CONTENT => TemplatedErrorHandlerFactory::class,
+                    'text/plain' => PlainTextResponseGeneratorFactory::class,
+                    'text/html' => ErrorResponseGeneratorFactory::class,
                 ],
                 'aliases' => [
-                    'application/xhtml+xml' => ContentBasedErrorHandler::DEFAULT_CONTENT,
+                    'application/xhtml+xml' => 'text/html',
                 ],
             ],
         ];
