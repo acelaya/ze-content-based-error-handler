@@ -4,15 +4,15 @@ namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-interface ErrorHandlerInterface
+interface ErrorResponseGeneratorInterface
 {
     /**
      * Final handler for an application.
      *
+     * @param \Throwable|\Exception $e
      * @param Request $request
      * @param Response $response
-     * @param null|mixed $err
      * @return Response
      */
-    public function __invoke(Request $request, Response $response, $err = null);
+    public function __invoke($e, Request $request, Response $response);
 }
