@@ -46,10 +46,10 @@ class ConfigProvider
                     'text/plain' => FinalHandler::class,
                 ],
                 'factories' => [
-                    ContentBasedErrorHandler::DEFAULT_CONTENT => TemplatedErrorHandlerFactory::class,
+                    'text/html' => TemplatedErrorHandlerFactory::class,
                 ],
                 'aliases' => [
-                    'application/xhtml+xml' => ContentBasedErrorHandler::DEFAULT_CONTENT,
+                    'application/xhtml+xml' => 'text/html',
                 ],
             ],
         ];

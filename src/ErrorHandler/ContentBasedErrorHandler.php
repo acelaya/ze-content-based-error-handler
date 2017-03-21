@@ -71,11 +71,13 @@ class ContentBasedErrorHandler implements ErrorHandlerInterface
      *
      * @param Request $request
      * @return callable
+     * @throws InvalidArgumentException
      */
     protected function resolveErrorHandlerFromAcceptHeader(Request $request)
     {
         // Try to find an error handler for one of the accepted content types
         $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : $this->defaultContentType;
+        /** @var array $accepts */
         $accepts = explode(',', $accepts);
         foreach ($accepts as $accept) {
             if (! $this->errorHandlerManager->has($accept)) {

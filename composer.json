@@ -41,7 +41,7 @@
         ],
         "cs": "phpcs",
         "cs-fix": "phpcbf",
-        "test": "phpunit --coverage-clover build/clover.xml",
+        "test": "phpunit --coverage-clover build/clover.xml --colors=always",
         "pretty-test": "phpunit --coverage-html build/coverage"
     }
 }
