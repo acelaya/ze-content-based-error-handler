@@ -2,7 +2,7 @@
 namespace AcelayaTest\ExpressiveErrorHandler\Log;
 
 use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 

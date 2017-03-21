@@ -4,7 +4,7 @@ namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
 use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;

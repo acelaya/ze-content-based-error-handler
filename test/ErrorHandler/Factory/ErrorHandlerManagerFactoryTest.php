@@ -3,7 +3,7 @@ namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler\Factory;
 
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ErrorHandlerManagerFactory;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceManager;
 
 class ErrorHandlerManagerFactoryTest extends TestCase

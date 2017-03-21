@@ -5,7 +5,7 @@ use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorHandler;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorHandlerManager;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorHandlerFactory;
 use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Zend\ServiceManager\ServiceManager;
 
