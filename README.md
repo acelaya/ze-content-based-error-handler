@@ -7,15 +7,17 @@
 [![Total Downloads](https://poser.pugx.org/acelaya/ze-content-based-error-handler/downloads.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
 [![License](https://poser.pugx.org/acelaya/ze-content-based-error-handler/license.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
 
-A Zend Expressive error handler which allows to implement different strategies to render error responses based on the accepted content-types.
+A Zend Expressive error response generator which allows to implement different strategies to render error responses based on the accepted content-types.
 
 ### Context
 
-This package has been created following this article https://blog.alejandrocelaya.com/2016/07/29/creating-a-content-based-error-handler-for-zend-expressive/.
+This package was created following this article https://blog.alejandrocelaya.com/2016/07/29/creating-a-content-based-error-handler-for-zend-expressive/.
 
 On it, I demonstrate how to implement an strategy-based system which generates different error responses by taking into account the request's `Accept` header.
 
-After writing the article I have decided to create this package, so that everybody can install and use the provided solution in their own projects.
+After writing the article I decided to create this package, so that everybody can install and use the provided solution in their own projects.
+
+The package has then evolved to support expressive 2, which completely drops the concept of error handlers. Instead, from v2, this provides error response generators.
 
 ### Installation
 
@@ -25,31 +27,32 @@ Use composer to install this package
 
 ### Usage
 
-This package includes an error handler, the `Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator`, that can be used to replace default Zend Expressive implementations.
+This package includes an error response generator, the `Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator`, that can be used to replace default Zend Expressive implementations.
 
-It composes a plugin manager that fetches a concrete error handler at runtime, based on the Request's `Accept` header. Thus, you can use the Expressive's `TemplatedErrorHandler` to dispatch **text/html** request errors, Stratiglity's `FinalHandler` for **text/plain** errors, etc.
+It composes a plugin manager that fetches a concrete error response generator at runtime, based on the Request's `Accept` header. Thus, you can use the Expressive's `ErrorResponseGenerator` to dispatch **text/html** request errors, Stratiglity's `ErrorResponseGenerator` for **text/plain** errors, etc.
 
 You can also provide your own implementations for other content-types, like **application/json** or **text/xml**. The ContentBasedErrorResponseGenerator will automatically use the proper implementation.
 
 ### Provided configuration
 
-To get things easily working, a `ConfigProvider` is included, which automatically registers all the dependencies in the service container (including the `Zend\Expressive\ErroHandler` service).
+To get things easily working, a `ConfigProvider` is included, which automatically registers all the dependencies in the service container (including the `Zend\Expressive\Middleware\ErrorResponseGenerator` service).
 
-It also preregisters error handlers for html and plain text requests (The `TemplatedErrorHandler` and the `FinalHandler` as mentioned before).
+It also preregisters error handlers for html and plain text requests (The `Zend\Expressive\Middleware\ErrorResponseGenerator` and the `Zend\Stratigility\Middleware\ErrorResponseGenerator` as mentioned before).
 
 ```php
 <?php
+use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\PlainTextResponseGeneratorFactory;
+use Zend\Expressive\Container\ErrorResponseGeneratorFactory;
+
 return [
 
     'error_handler' => [
         'default_content_type' => 'text/html',
 
         'plugins' => [
-            'invokables' => [
-                'text/plain' => FinalHandler::class,
-            ],
             'factories' => [
-                'text/html' => TemplatedErrorHandlerFactory::class,
+                'text/plain' => PlainTextResponseGeneratorFactory::class,
+                'text/html' => ErrorResponseGeneratorFactory::class,
             ],
             'aliases' => [
                 'application/xhtml+xml' => 'text/html',
@@ -69,32 +72,45 @@ In order to use the built-in ConfigProvider, create a config file with this cont
 return (new Acelaya\ExpressiveErrorHandler\ConfigProvider())->__invoke();
 ```
 
-If your are using the Expressive's ConfigManager ([mtymek/expressive-config-manager](https://github.com/mtymek/expressive-config-manager)), you can just pass the class name to it like this:
+If your are using [zend config aggregator](https://github.com/zendframework/zend-config-aggregator), you can just pass the class name to it like this:
 
 ```php
-return (new Zend\Expressive\ConfigManager([
+return (new Zend\ConfigAggregator\ConfigAggregator([
     Acelaya\ExpressiveErrorHandler\ConfigProvider::class,
     // [...]
-    new ZendConfigProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
+    new Zend\ConfigAggregator\ZendConfigProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
 ], 'data/cache/app_config.php'))->getMergedConfig();
 ```
+
+Also, if you are using the [zend component installer](https://docs.zendframework.com/zend-component-installer/) package, it will ask you to register the ConfigProvider when installed.
 
 ### Override configuration
 
 If you need to override any of the content types, its as easy as defining the same plugin with a different value.
 
-For example, it is very likely that you want to use Expressive's `WhoopsErrorHandler` in development environments.
+For example, it is very likely that you want to use Expressive's `WhoopsErrorResponseGenerator` in development environments.
 
 Just define a local configuration file with this content and all the html requests will use it from now on:
 
 ```php
 <?php
+use Zend\Expressive\Container\WhoopsErrorResponseGeneratorFactory;
+use Zend\Expressive\Container\WhoopsFactory;
+use Zend\Expressive\Container\WhoopsPageHandlerFactory;
+
 return [
+
+    'dependencies' => [
+        'factories' => [
+            'Zend\Expressive\Whoops' => WhoopsFactory::class,
+            'Zend\Expressive\WhoopsPageHandler' => WhoopsPageHandlerFactory::class,
+        ]
+    ],
 
     'error_handler' => [
         'plugins' => [
             'factories' => [
-                'text/html' => WhoopsErrorHandlerFactory::class,
+                'text/html' => WhoopsErrorResponseGeneratorFactory::class,
             ],
         ],
     ],
@@ -106,15 +122,18 @@ You will probably need to define other error handlers for different content type
 
 ```php
 <?php
+use App\ErrorHandler\Factory\XmlErrorResponseGeneratorFactory;
+use App\ErrorHandler\JsonErrorResponseGenerator;
+
 return [
 
     'error_handler' => [
         'plugins' => [
             'invokables' => [
-                'application/json' => JsonErrorHandler::class,
+                'application/json' => JsonErrorResponseGenerator::class,
             ],
             'factories' => [
-                'text/xml' => XmlErrorHandlerFactory::class,
+                'text/xml' => XmlErrorResponseGeneratorFactory::class,
             ],
             'aliases' => [
                 'application/x-json' => 'application/json',
@@ -126,7 +145,7 @@ return [
 ];
 ```
 
-With this configuration, the `ContentBasedErrorResponseGenerator` will create the proper `JsonErroHandler` or `XmlErroHandler` at runtime, to dispatch json or xml errors.
+With this configuration, the `ContentBasedErrorResponseGenerator` will create the proper `JsonErrorResponseGenerator` or `XmlErrorResponseGenerator` at runtime, to dispatch json or xml errors.
 
 Similarly, you could need to override the default content type by setting the `default_content_type` property.
 
