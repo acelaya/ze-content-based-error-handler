@@ -9,10 +9,7 @@ use Psr\Log\LoggerInterface;
 
 class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterface
 {
-    /**
-     * @deprecated Inject the default content type to be used while creating this class
-     */
-    const DEFAULT_CONTENT = 'text/html';
+    private const DEFAULT_CONTENT = 'text/html';
 
     /**
      * @var ErrorResponseGeneratorManagerInterface
@@ -33,7 +30,7 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
 
     /**
      * ContentBasedErrorResponseGenerator constructor.
-     * @param ErrorResponseGeneratorManagerInterface|ErrorResponseGeneratorManager $errorHandlerManager
+     * @param ErrorResponseGeneratorManagerInterface $errorHandlerManager
      * @param LoggerInterface $logger
      * @param LogMessageBuilderInterface $logMessageBuilder
      * @param string $defaultContentType
@@ -42,7 +39,7 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
         ErrorResponseGeneratorManagerInterface $errorHandlerManager,
         LoggerInterface $logger,
         LogMessageBuilderInterface $logMessageBuilder,
-        $defaultContentType = 'text/html'
+        string $defaultContentType = self::DEFAULT_CONTENT
     ) {
         $this->errorHandlerManager = $errorHandlerManager;
         $this->logger = $logger;
@@ -53,12 +50,13 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
     /**
      * Final handler for an application.
      *
-     * @param \Throwable|\Exception $e
+     * @param \Throwable $e
      * @param Request $request
      * @param Response $response
      * @return Response
+     * @throws InvalidArgumentException
      */
-    public function __invoke($e, Request $request, Response $response)
+    public function __invoke($e, Request $request, Response $response): Response
     {
         // Try to get an error handler for provided request accepted type
         $errorHandler = $this->resolveErrorHandlerFromAcceptHeader($request);
@@ -67,13 +65,13 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
     }
 
     /**
-     * Tries to resolve
+     * Tries to resolve an error response generator based on request's accept header
      *
      * @param Request $request
      * @return callable
      * @throws InvalidArgumentException
      */
-    protected function resolveErrorHandlerFromAcceptHeader(Request $request)
+    protected function resolveErrorHandlerFromAcceptHeader(Request $request): callable
     {
         // Try to find an error handler for one of the accepted content types
         $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : $this->defaultContentType;
