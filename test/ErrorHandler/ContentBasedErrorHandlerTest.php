@@ -34,7 +34,7 @@ class ContentBasedErrorHandlerTest extends TestCase
     public function factory($container, $name)
     {
         return function () use ($name) {
-            return $name;
+            return (new Response())->withHeader('Content-type', $name);
         };
     }
 
@@ -45,17 +45,17 @@ class ContentBasedErrorHandlerTest extends TestCase
     {
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,application/json');
         $result = $this->errorHandler->__invoke(null, $request, new Response());
-        $this->assertEquals('application/json', $result);
+        $this->assertEquals('application/json', $result->getHeaderLine('Content-type'));
     }
 
     /**
      * @test
      */
-    public function defaultContentTypeIsUsedWhenNoAcceptHeaderisPresent()
+    public function defaultContentTypeIsUsedWhenNoAcceptHeaderIsPresent()
     {
         $request = ServerRequestFactory::fromGlobals();
         $result = $this->errorHandler->__invoke(null, $request, new Response());
-        $this->assertEquals('text/html', $result);
+        $this->assertEquals('text/html', $result->getHeaderLine('Content-type'));
     }
 
     /**
@@ -65,7 +65,7 @@ class ContentBasedErrorHandlerTest extends TestCase
     {
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
         $result = $this->errorHandler->__invoke(null, $request, new Response());
-        $this->assertEquals('text/html', $result);
+        $this->assertEquals('text/html', $result->getHeaderLine('Content-type'));
     }
 
     /**
@@ -101,6 +101,6 @@ class ContentBasedErrorHandlerTest extends TestCase
         );
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
         $result = $this->errorHandler->__invoke(null, $request, new Response());
-        $this->assertEquals('application/json', $result);
+        $this->assertEquals('application/json', $result->getHeaderLine('Content-type'));
     }
 }

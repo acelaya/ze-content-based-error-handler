@@ -9,7 +9,7 @@ interface ErrorResponseGeneratorInterface
     /**
      * Final handler for an application.
      *
-     * @param \Throwable|\Exception $e
+     * @param \Throwable $e
      * @param Request $request
      * @param Response $response
      * @return Response
