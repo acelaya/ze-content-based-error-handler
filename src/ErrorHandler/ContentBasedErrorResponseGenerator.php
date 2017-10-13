@@ -65,7 +65,7 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
     }
 
     /**
-     * Tries to resolve
+     * Tries to resolve an error response generator based on request's accept header
      *
      * @param Request $request
      * @return callable
