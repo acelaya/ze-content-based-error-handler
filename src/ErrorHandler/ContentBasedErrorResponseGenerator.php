@@ -10,11 +10,6 @@ use Psr\Log\LoggerInterface;
 class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterface
 {
     /**
-     * @deprecated Inject the default content type to be used while creating this class
-     */
-    const DEFAULT_CONTENT = 'text/html';
-
-    /**
      * @var ErrorResponseGeneratorManagerInterface
      */
     private $errorHandlerManager;
