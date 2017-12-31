@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler;
 
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
@@ -21,7 +23,7 @@ class ErrorHandlerManagerTest extends TestCase
             ],
             'invokables' => [
                 'invalid' => \stdClass::class,
-            ]
+            ],
         ]);
     }
 

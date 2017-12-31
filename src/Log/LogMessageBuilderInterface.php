@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\ExpressiveErrorHandler\Log;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -11,8 +13,8 @@ interface LogMessageBuilderInterface
      *
      * @param Request $request
      * @param Response $response
-     * @param null $err
+     * @param \Throwable|null $err
      * @return string
      */
-    public function buildMessage(Request $request, Response $response, $err = null);
+    public function buildMessage(Request $request, Response $response, \Throwable $err = null): string;
 }

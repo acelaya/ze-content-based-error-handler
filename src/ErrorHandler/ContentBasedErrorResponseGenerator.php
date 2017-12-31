@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 
 use Acelaya\ExpressiveErrorHandler\Exception\InvalidArgumentException;
@@ -50,13 +52,13 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
     /**
      * Final handler for an application.
      *
-     * @param \Throwable $e
+     * @param \Throwable|null $e
      * @param Request $request
      * @param Response $response
      * @return Response
      * @throws InvalidArgumentException
      */
-    public function __invoke($e, Request $request, Response $response): Response
+    public function __invoke(?\Throwable $e, Request $request, Response $response): Response
     {
         // Try to get an error handler for provided request accepted type
         $errorHandler = $this->resolveErrorHandlerFromAcceptHeader($request);
