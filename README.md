@@ -1,11 +1,11 @@
 # Zend Expressive ContentBasedErrorResponseGenerator
 
-[![Build Status](https://travis-ci.org/acelaya/ze-content-based-error-handler.svg?branch=master)](https://travis-ci.org/acelaya/ze-content-based-error-handler)
-[![Code Coverage](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/acelaya/ze-content-based-error-handler/v/stable.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
-[![Total Downloads](https://poser.pugx.org/acelaya/ze-content-based-error-handler/downloads.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
-[![License](https://poser.pugx.org/acelaya/ze-content-based-error-handler/license.png)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![Build Status](https://img.shields.io/travis/acelaya/ze-content-based-error-handler/master.svg?style=flat-square)](https://travis-ci.org/acelaya/ze-content-based-error-handler)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/acelaya/ze-content-based-error-handler/v/stable?format=flat-square)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![Total Downloads](https://poser.pugx.org/acelaya/ze-content-based-error-handler/downloads?format=flat-square)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![License](https://poser.pugx.org/acelaya/ze-content-based-error-handler/license?format=flat-square)](LICENSE)
 
 A Zend Expressive error response generator which allows to implement different strategies to render error responses based on the accepted content-types.
 
