@@ -11,10 +11,10 @@ interface ErrorResponseGeneratorInterface
     /**
      * Final handler for an application.
      *
-     * @param \Throwable $e
+     * @param \Throwable|null $e
      * @param Request $request
      * @param Response $response
      * @return Response
      */
-    public function __invoke($e, Request $request, Response $response);
+    public function __invoke(?\Throwable $e, Request $request, Response $response);
 }

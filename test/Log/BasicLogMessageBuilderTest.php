@@ -34,7 +34,7 @@ class BasicLogMessageBuilderTest extends TestCase
      */
     public function errorIsIncludedWhenProvided()
     {
-        $err = 'A super critical error';
+        $err = new \Exception('A super critical error');
         $message = $this->messageBuilder->buildMessage(ServerRequestFactory::fromGlobals(), new Response(), $err);
         $this->assertEquals('Error occurred while dispatching request: ' . PHP_EOL . $err, $message);
     }
