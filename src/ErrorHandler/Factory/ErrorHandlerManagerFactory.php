@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory;
 
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;

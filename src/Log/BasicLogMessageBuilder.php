@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\ExpressiveErrorHandler\Log;
 
 use Psr\Http\Message\ResponseInterface as Response;
