@@ -36,6 +36,6 @@ class BasicLogMessageBuilderTest extends TestCase
     {
         $err = new \Exception('A super critical error');
         $message = $this->messageBuilder->buildMessage(ServerRequestFactory::fromGlobals(), new Response(), $err);
-        $this->assertEquals('Error occurred while dispatching request: ' . PHP_EOL . $err, $message);
+        $this->assertEquals('Error occurred while dispatching request:' . PHP_EOL . $err, $message);
     }
 }

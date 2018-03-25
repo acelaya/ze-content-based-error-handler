@@ -24,6 +24,7 @@ class ConfigProviderTest extends TestCase
     public function configIsCorrect()
     {
         $config = $this->configProvider->__invoke();
+        $this->assertCount(2, $config);
         $this->assertArrayHasKey('dependencies', $config);
         $this->assertArrayHasKey('error_handler', $config);
     }

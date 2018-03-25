@@ -23,6 +23,6 @@ class BasicLogMessageBuilder implements LogMessageBuilderInterface
             return $base;
         }
 
-        return $base . ': ' . PHP_EOL . $err;
+        return \sprintf('%s:%s%s', $base, PHP_EOL, $err);
     }
 }
