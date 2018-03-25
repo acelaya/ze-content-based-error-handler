@@ -1,5 +1,16 @@
 ## CHANGELOG
 
+### 2.2.0
+
+**Enhancements:**
+
+* [9: Add compatibility with expressive 3](https://github.com/acelaya/ze-content-based-error-handler/issues/9)
+
+**Tasks:**
+
+* [10: Add infection to the CI pipeline](https://github.com/acelaya/ze-content-based-error-handler/issues/10)
+* [11: Improve build matrix so that it passes build for lowest and latest supported dependencies](https://github.com/acelaya/ze-content-based-error-handler/issues/11)
+
 ### 2.1.1
 
 **Enhancements:**

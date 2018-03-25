@@ -73,12 +73,12 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
      * @return callable
      * @throws InvalidArgumentException
      */
-    protected function resolveErrorHandlerFromAcceptHeader(Request $request): callable
+    private function resolveErrorHandlerFromAcceptHeader(Request $request): callable
     {
         // Try to find an error handler for one of the accepted content types
         $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : $this->defaultContentType;
         /** @var array $accepts */
-        $accepts = explode(',', $accepts);
+        $accepts = \explode(',', $accepts);
         foreach ($accepts as $accept) {
             if (! $this->errorHandlerManager->has($accept)) {
                 continue;
@@ -93,10 +93,10 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
         }
 
         // It wasn't possible to find an error handler
-        throw new InvalidArgumentException(sprintf(
+        throw new InvalidArgumentException(\sprintf(
             'It wasn\'t possible to find an error handler for ["%s"] content types. '
             . 'Make sure you have registered at least the default "%s" content type',
-            implode('", "', $accepts),
+            \implode('", "', $accepts),
             $this->defaultContentType
         ));
     }

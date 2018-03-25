@@ -28,7 +28,7 @@ class ContentBasedErrorResponseGeneratorFactory
     public function __invoke(ContainerInterface $container)
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $ehConfig = isset($config['error_handler']) ? $config['error_handler'] : [];
+        $ehConfig = $config['error_handler'] ?? [];
 
         $errorHandlerManager = $container->get(ErrorResponseGeneratorManager::class);
         $logger = $container->has(LoggerInterface::class) ? $container->get(LoggerInterface::class) : new NullLogger();
@@ -38,7 +38,7 @@ class ContentBasedErrorResponseGeneratorFactory
             $errorHandlerManager,
             $logger,
             $logMessageBuilder,
-            isset($ehConfig['default_content_type']) ? $ehConfig['default_content_type'] : 'text/html'
+            $ehConfig['default_content_type'] ?? 'text/html'
         );
     }
 }

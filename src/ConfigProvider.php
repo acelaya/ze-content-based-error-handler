@@ -16,7 +16,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
 {
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->createDependenciesConfig(),
@@ -24,7 +24,7 @@ class ConfigProvider
         ];
     }
 
-    private function createDependenciesConfig()
+    private function createDependenciesConfig(): array
     {
         return [
             'factories' => [
@@ -39,7 +39,7 @@ class ConfigProvider
         ];
     }
 
-    private function createErrorHandlerConfig()
+    private function createErrorHandlerConfig(): array
     {
         return [
             'default_content_type' => 'text/html',

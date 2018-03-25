@@ -24,8 +24,7 @@ class ErrorHandlerManagerFactory
     public function __invoke(ContainerInterface $container)
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $errorHandlerConfig = isset($config['error_handler']) ? $config['error_handler'] : [];
-        $plugins = isset($errorHandlerConfig['plugins']) ? $errorHandlerConfig['plugins'] : [];
+        $plugins = $config['error_handler']['plugins'] ?? [];
         return new ErrorResponseGeneratorManager($container, $plugins);
     }
 }
