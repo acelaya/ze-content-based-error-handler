@@ -9,7 +9,7 @@ use Zend\ServiceManager\Exception\InvalidServiceException;
 class ErrorResponseGeneratorManager extends AbstractPluginManager implements ErrorResponseGeneratorManagerInterface
 {
     /**
-     * @param $instance
+     * @param mixed $instance
      * @throws InvalidServiceException
      */
     public function validate($instance)
