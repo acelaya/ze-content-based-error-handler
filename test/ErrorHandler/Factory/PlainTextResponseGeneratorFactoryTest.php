@@ -22,10 +22,30 @@ class PlainTextResponseGeneratorFactoryTest extends TestCase
 
     /**
      * @test
+     * @dataProvider provideDebugs
+     * @param array $config
+     * @param bool $expectedIsDev
      */
-    public function serviceIsCreated()
+    public function serviceIsCreated(array $config, bool $expectedIsDev)
     {
-        $instance = $this->factory->__invoke(new ServiceManager([]));
+        $instance = $this->factory->__invoke(new ServiceManager(['services' => [
+            'config' => $config,
+        ]]));
+
+        $ref = new \ReflectionObject($instance);
+        $isDev = $ref->getProperty('isDevelopmentMode');
+        $isDev->setAccessible(true);
+
         $this->assertInstanceOf(ErrorResponseGenerator::class, $instance);
+        $this->assertEquals($expectedIsDev, $isDev->getValue($instance));
+    }
+
+    public function provideDebugs(): array
+    {
+        return [
+            [[], false],
+            [['debug' => true], true],
+            [['debug' => false], false],
+        ];
     }
 }

@@ -73,7 +73,7 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
      * @return callable
      * @throws InvalidArgumentException
      */
-    protected function resolveErrorHandlerFromAcceptHeader(Request $request): callable
+    private function resolveErrorHandlerFromAcceptHeader(Request $request): callable
     {
         // Try to find an error handler for one of the accepted content types
         $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : $this->defaultContentType;
