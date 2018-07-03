@@ -1,4 +1,4 @@
-## CHANGELOG
+# CHANGELOG
 
 
 ## 2.2.0 - 2018-03-25
