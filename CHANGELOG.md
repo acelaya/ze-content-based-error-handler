@@ -1,29 +1,74 @@
 ## CHANGELOG
 
-### 2.2.0
 
-**Enhancements:**
+## 2.2.0 - 2018-03-25
 
-* [9: Add compatibility with expressive 3](https://github.com/acelaya/ze-content-based-error-handler/issues/9)
+#### Added
 
-**Tasks:**
+* [#9](https://github.com/acelaya/ze-content-based-error-handler/issues/9) Added compatibility with expressive 3
+* [#10](https://github.com/acelaya/ze-content-based-error-handler/issues/10) Added mutation testing checks with infection to the CI pipeline
+* [#11](https://github.com/acelaya/ze-content-based-error-handler/issues/11) Improved build matrix so that it passes build for lowest and latest supported dependencies
 
-* [10: Add infection to the CI pipeline](https://github.com/acelaya/ze-content-based-error-handler/issues/10)
-* [11: Improve build matrix so that it passes build for lowest and latest supported dependencies](https://github.com/acelaya/ze-content-based-error-handler/issues/11)
+#### Changed
 
-### 2.1.1
+* *Nothing*
 
-**Enhancements:**
+#### Deprecated
 
-* [6: Improve coding styles using slevomat/coding-standard package](https://github.com/acelaya/ze-content-based-error-handler/issues/6)
-* [7: Add phpstan to build matrix](https://github.com/acelaya/ze-content-based-error-handler/issues/7)
+* *Nothing*
 
-**Bugs:**
+#### Removed
 
-* [6: Make ExceptionInterface extend Throwable ](https://github.com/acelaya/ze-content-based-error-handler/issues/6)
+* *Nothing*
 
-### 2.1.0
+#### Fixed
 
-**Enhancements:**
+* *Nothing*
 
-* [4: Drop support for PHP 5.6 and 7 and add support for PHP 7.2](https://github.com/acelaya/ze-content-based-error-handler/issues/4)
+
+## 2.1.1 - 2017-12-31
+
+#### Added
+
+* [#6](https://github.com/acelaya/ze-content-based-error-handler/issues/6) Improved coding styles using [slevomat/coding-standard](https://github.com/slevomat/coding-standard) package
+* [#7](https://github.com/acelaya/ze-content-based-error-handler/issues/7) Added [phpstan](https://github.com/phpstan/phpstan) to build matrix
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* [#6](https://github.com/acelaya/ze-content-based-error-handler/issues/6) Updated `ExceptionInterface` to extend from `\Throwable`
+
+
+## 2.1.0 - 2017-10-13
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* [#4](https://github.com/acelaya/ze-content-based-error-handler/issues/4) Dropped support for PHP 5.6 and 7 and added support for PHP 7.2
+
+#### Fixed
+
+* *Nothing*
+
