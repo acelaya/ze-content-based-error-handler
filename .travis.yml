@@ -18,6 +18,12 @@ matrix:
     - php: 7.2
       env:
         - DEPS=latest
+    - php: 7.3
+      env:
+        - DEPS=lowest
+    - php: 7.3
+      env:
+        - DEPS=latest
 
 before_script:
   - composer self-update
@@ -34,5 +40,3 @@ script:
 after_script:
   - if [[ $DEPS == 'latest' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
   - if [[ $DEPS == 'latest' ]]; then php ocular.phar code-coverage:upload --format=php-clover build/clover.xml ; fi
-
-sudo: false
