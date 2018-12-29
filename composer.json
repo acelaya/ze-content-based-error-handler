@@ -50,10 +50,10 @@
         "ac:cs": "phpcs",
         "ac:cs-fix": "phpcbf",
         "ac:stan": "phpstan analyse src/ --level=6",
-        "ac:test": "phpunit --coverage-clover build/clover.xml --colors=always",
-        "ac:pretty-test": "phpunit --coverage-html build/coverage",
-        "ac:infection": "infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered",
-        "ac:infection-show": "infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered --show-mutations"
+        "ac:test": "phpdbg -qrr vendor/bin/phpunit --coverage-clover build/clover.xml --colors=always",
+        "ac:pretty-test": "phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage",
+        "ac:infection": "phpdbg -qrr vendor/bin/infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered",
+        "ac:infection-show": "phpdbg -qrr vendor/bin/infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered --show-mutations"
     },
     "extra": {
         "zf": {

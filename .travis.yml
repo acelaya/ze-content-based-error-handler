@@ -25,7 +25,10 @@ matrix:
       env:
         - DEPS=latest
 
-before_script:
+before_install:
+  - phpenv config-rm xdebug.ini || return 0
+
+install:
   - composer self-update
   - composer install --no-interaction
   - if [[ $DEPS == 'latest' ]]; then composer update --no-interaction ; fi
@@ -37,6 +40,6 @@ script:
   - if [[ $DEPS == 'latest' ]]; then composer ac:ci ; fi
   - if [[ $DEPS == 'lowest' ]]; then composer ac:test ; fi
 
-after_script:
+after_success:
   - if [[ $DEPS == 'latest' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
   - if [[ $DEPS == 'latest' ]]; then php ocular.phar code-coverage:upload --format=php-clover build/clover.xml ; fi
