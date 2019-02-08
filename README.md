@@ -3,9 +3,10 @@
 [![Build Status](https://img.shields.io/travis/acelaya/ze-content-based-error-handler/master.svg?style=flat-square)](https://travis-ci.org/acelaya/ze-content-based-error-handler)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/ze-content-based-error-handler/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/acelaya/ze-content-based-error-handler/v/stable?format=flat-square)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
-[![Total Downloads](https://poser.pugx.org/acelaya/ze-content-based-error-handler/downloads?format=flat-square)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
-[![License](https://poser.pugx.org/acelaya/ze-content-based-error-handler/license?format=flat-square)](LICENSE)
+[![Latest Stable Version](https://img.shields.io/github/release/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![Total Downloads](https://img.shields.io/packagist/dt/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://packagist.org/packages/acelaya/ze-content-based-error-handler)
+[![License](https://img.shields.io/github/license/acelaya/ze-content-based-error-handler.svg?style=flat-square)](https://github.com/acelaya/ze-content-based-error-handler/blob/master/LICENSE)
+[![Paypal Donate](https://img.shields.io/badge/Donate-paypal-blue.svg?style=flat-square&logo=paypal&colorA=cccccc)](https://acel.me/donate)
 
 A Zend Expressive error response generator which allows to implement different strategies to render error responses based on the accepted content-types.
 
