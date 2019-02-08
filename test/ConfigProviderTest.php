@@ -8,12 +8,10 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigProviderTest extends TestCase
 {
-    /**
-     * @var ConfigProvider
-     */
+    /** @var ConfigProvider */
     protected $configProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configProvider = new ConfigProvider();
     }
@@ -21,7 +19,7 @@ class ConfigProviderTest extends TestCase
     /**
      * @test
      */
-    public function configIsCorrect()
+    public function configIsCorrect(): void
     {
         $config = $this->configProvider->__invoke();
         $this->assertCount(2, $config);

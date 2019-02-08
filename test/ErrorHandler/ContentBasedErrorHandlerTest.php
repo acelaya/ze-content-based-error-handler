@@ -5,6 +5,7 @@ namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler;
 
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ContentBasedErrorResponseGenerator;
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
+use Acelaya\ExpressiveErrorHandler\Exception\InvalidArgumentException;
 use Acelaya\ExpressiveErrorHandler\Log\BasicLogMessageBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
@@ -14,12 +15,10 @@ use Zend\ServiceManager\ServiceManager;
 
 class ContentBasedErrorHandlerTest extends TestCase
 {
-    /**
-     * @var ContentBasedErrorResponseGenerator
-     */
+    /** @var ContentBasedErrorResponseGenerator */
     protected $errorHandler;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->errorHandler = new ContentBasedErrorResponseGenerator(
             new ErrorResponseGeneratorManager(new ServiceManager(), [
@@ -33,7 +32,7 @@ class ContentBasedErrorHandlerTest extends TestCase
         );
     }
 
-    public function factory($container, $name)
+    public function factory($container, $name): callable
     {
         return function () use ($name) {
             return (new Response())->withHeader('Content-type', $name);
@@ -43,7 +42,7 @@ class ContentBasedErrorHandlerTest extends TestCase
     /**
      * @test
      */
-    public function correctAcceptHeaderValueInvokesErrorHandler()
+    public function correctAcceptHeaderValueInvokesErrorHandler(): void
     {
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,application/json');
         $result = $this->errorHandler->__invoke(null, $request, new Response());
@@ -53,7 +52,7 @@ class ContentBasedErrorHandlerTest extends TestCase
     /**
      * @test
      */
-    public function defaultContentTypeIsUsedWhenNoAcceptHeaderIsPresent()
+    public function defaultContentTypeIsUsedWhenNoAcceptHeaderIsPresent(): void
     {
         $request = ServerRequestFactory::fromGlobals();
         $result = $this->errorHandler->__invoke(null, $request, new Response());
@@ -63,7 +62,7 @@ class ContentBasedErrorHandlerTest extends TestCase
     /**
      * @test
      */
-    public function defaultContentTypeIsUsedWhenAcceptedContentIsNotSupported()
+    public function defaultContentTypeIsUsedWhenAcceptedContentIsNotSupported(): void
     {
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
         $result = $this->errorHandler->__invoke(null, $request, new Response());
@@ -72,9 +71,8 @@ class ContentBasedErrorHandlerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Acelaya\ExpressiveErrorHandler\Exception\InvalidArgumentException
      */
-    public function ifNoErrorHandlerIsFoundAnExceptionIsThrown()
+    public function ifNoErrorHandlerIsFoundAnExceptionIsThrown(): void
     {
         $this->errorHandler = new ContentBasedErrorResponseGenerator(
             new ErrorResponseGeneratorManager(new ServiceManager(), []),
@@ -82,13 +80,15 @@ class ContentBasedErrorHandlerTest extends TestCase
             new BasicLogMessageBuilder()
         );
         $request = ServerRequestFactory::fromGlobals()->withHeader('Accept', 'foo/bar,text/xml');
+
+        $this->expectException(InvalidArgumentException::class);
         $this->errorHandler->__invoke(null, $request, new Response());
     }
 
     /**
      * @test
      */
-    public function providedDefaultContentTypeIsUsed()
+    public function providedDefaultContentTypeIsUsed(): void
     {
         $this->errorHandler = new ContentBasedErrorResponseGenerator(
             new ErrorResponseGeneratorManager(new ServiceManager(), [

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker-compose run ze_cbeh_php /bin/sh -c "$*"

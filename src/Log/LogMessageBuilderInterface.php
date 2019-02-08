@@ -5,6 +5,7 @@ namespace Acelaya\ExpressiveErrorHandler\Log;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Throwable;
 
 interface LogMessageBuilderInterface
 {
@@ -16,5 +17,5 @@ interface LogMessageBuilderInterface
      * @param \Throwable|null $err
      * @return string
      */
-    public function buildMessage(Request $request, Response $response, \Throwable $err = null): string;
+    public function buildMessage(Request $request, Response $response, Throwable $err = null): string;
 }

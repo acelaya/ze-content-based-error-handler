@@ -5,17 +5,16 @@ namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler\Factory;
 
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\PlainTextResponseGeneratorFactory;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stratigility\Middleware\ErrorResponseGenerator;
 
 class PlainTextResponseGeneratorFactoryTest extends TestCase
 {
-    /**
-     * @var PlainTextResponseGeneratorFactory
-     */
+    /** @var PlainTextResponseGeneratorFactory */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->factory = new PlainTextResponseGeneratorFactory();
     }
@@ -23,16 +22,14 @@ class PlainTextResponseGeneratorFactoryTest extends TestCase
     /**
      * @test
      * @dataProvider provideDebugs
-     * @param array $config
-     * @param bool $expectedIsDev
      */
-    public function serviceIsCreated(array $config, bool $expectedIsDev)
+    public function serviceIsCreated(array $config, bool $expectedIsDev): void
     {
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
             'config' => $config,
         ]]));
 
-        $ref = new \ReflectionObject($instance);
+        $ref = new ReflectionObject($instance);
         $isDev = $ref->getProperty('isDevelopmentMode');
         $isDev->setAccessible(true);
 

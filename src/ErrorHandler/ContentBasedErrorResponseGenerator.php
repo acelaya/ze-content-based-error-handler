@@ -8,26 +8,22 @@ use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Log\LoggerInterface;
+use Throwable;
+use function explode;
+use function implode;
+use function sprintf;
 
 class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterface
 {
     private const DEFAULT_CONTENT = 'text/html';
 
-    /**
-     * @var ErrorResponseGeneratorManagerInterface
-     */
+    /** @var ErrorResponseGeneratorManagerInterface */
     private $errorHandlerManager;
-    /**
-     * @var LoggerInterface
-     */
+    /** @var LoggerInterface */
     private $logger;
-    /**
-     * @var LogMessageBuilderInterface
-     */
+    /** @var LogMessageBuilderInterface */
     private $logMessageBuilder;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $defaultContentType;
 
     /**
@@ -58,7 +54,7 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
      * @return Response
      * @throws InvalidArgumentException
      */
-    public function __invoke(?\Throwable $e, Request $request, Response $response): Response
+    public function __invoke(?Throwable $e, Request $request, Response $response): Response
     {
         // Try to get an error handler for provided request accepted type
         $errorHandler = $this->resolveErrorHandlerFromAcceptHeader($request);
@@ -78,7 +74,7 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
         // Try to find an error handler for one of the accepted content types
         $accepts = $request->hasHeader('Accept') ? $request->getHeaderLine('Accept') : $this->defaultContentType;
         /** @var array $accepts */
-        $accepts = \explode(',', $accepts);
+        $accepts = explode(',', $accepts);
         foreach ($accepts as $accept) {
             if (! $this->errorHandlerManager->has($accept)) {
                 continue;
@@ -93,10 +89,10 @@ class ContentBasedErrorResponseGenerator implements ErrorResponseGeneratorInterf
         }
 
         // It wasn't possible to find an error handler
-        throw new InvalidArgumentException(\sprintf(
+        throw new InvalidArgumentException(sprintf(
             'It wasn\'t possible to find an error handler for ["%s"] content types. '
             . 'Make sure you have registered at least the default "%s" content type',
-            \implode('", "', $accepts),
+            implode('", "', $accepts),
             $this->defaultContentType
         ));
     }
