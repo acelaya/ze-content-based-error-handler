@@ -4,17 +4,18 @@ declare(strict_types=1);
 namespace AcelayaTest\ExpressiveErrorHandler\ErrorHandler;
 
 use Acelaya\ExpressiveErrorHandler\ErrorHandler\ErrorResponseGeneratorManager;
+use Closure;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceManager;
 
 class ErrorHandlerManagerTest extends TestCase
 {
-    /**
-     * @var ErrorResponseGeneratorManager
-     */
+    /** @var ErrorResponseGeneratorManager */
     protected $pluginManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->pluginManager = new ErrorResponseGeneratorManager(new ServiceManager(), [
             'services' => [
@@ -22,7 +23,7 @@ class ErrorHandlerManagerTest extends TestCase
                 },
             ],
             'invokables' => [
-                'invalid' => \stdClass::class,
+                'invalid' => stdClass::class,
             ],
         ]);
     }
@@ -30,18 +31,18 @@ class ErrorHandlerManagerTest extends TestCase
     /**
      * @test
      */
-    public function callablesAreReturned()
+    public function callablesAreReturned(): void
     {
         $instance = $this->pluginManager->get('foo');
-        $this->assertInstanceOf(\Closure::class, $instance);
+        $this->assertInstanceOf(Closure::class, $instance);
     }
 
     /**
      * @test
-     * @expectedException \Zend\ServiceManager\Exception\InvalidServiceException
      */
     public function nonCallablesThrowException()
     {
+        $this->expectException(InvalidServiceException::class);
         $this->pluginManager->get('invalid');
     }
 }

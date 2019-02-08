@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ze_cbeh_php:
+    container_name: ze_cbeh_php
+    image: composer:1.8.3
+    volumes:
+      - ./:/app

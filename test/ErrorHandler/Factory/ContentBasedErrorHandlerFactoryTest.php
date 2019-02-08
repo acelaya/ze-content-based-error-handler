@@ -9,16 +9,15 @@ use Acelaya\ExpressiveErrorHandler\ErrorHandler\Factory\ContentBasedErrorRespons
 use Acelaya\ExpressiveErrorHandler\Log\LogMessageBuilderInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use ReflectionObject;
 use Zend\ServiceManager\ServiceManager;
 
 class ContentBasedErrorHandlerFactoryTest extends TestCase
 {
-    /**
-     * @var ContentBasedErrorResponseGeneratorFactory
-     */
+    /** @var ContentBasedErrorResponseGeneratorFactory */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->factory = new ContentBasedErrorResponseGeneratorFactory();
     }
@@ -26,7 +25,7 @@ class ContentBasedErrorHandlerFactoryTest extends TestCase
     /**
      * @test
      */
-    public function serviceIsCreated()
+    public function serviceIsCreated(): void
     {
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
             ErrorResponseGeneratorManager::class => $this->prophesize(ErrorResponseGeneratorManager::class)->reveal(),
@@ -45,7 +44,7 @@ class ContentBasedErrorHandlerFactoryTest extends TestCase
     /**
      * @test
      */
-    public function defaultContentTypeIsSetWhenDefined()
+    public function defaultContentTypeIsSetWhenDefined(): void
     {
         /** @var ContentBasedErrorResponseGenerator $instance */
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
@@ -58,7 +57,7 @@ class ContentBasedErrorHandlerFactoryTest extends TestCase
             ],
         ]]));
 
-        $ref = new \ReflectionObject($instance);
+        $ref = new ReflectionObject($instance);
         $prop = $ref->getProperty('defaultContentType');
         $prop->setAccessible(true);
         $this->assertEquals('application/json', $prop->getValue($instance));

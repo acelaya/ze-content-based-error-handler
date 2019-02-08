@@ -5,6 +5,10 @@
 /.travis.yml export-ignore
 /phpcs.xml export-ignore
 /phpunit.xml.dist export-ignore
+/phpstan.neon export-ignore
+/docker-compose.yml export-ignore
+/docker-compose.override.yml.dist export-ignore
+/indocker export-ignore
 /composer.lock export-ignore
 /infection.json export-ignore
 /CHANGELOG.md export-ignore

@@ -10,12 +10,10 @@ use Zend\ServiceManager\ServiceManager;
 
 class ErrorHandlerManagerFactoryTest extends TestCase
 {
-    /**
-     * @var ErrorHandlerManagerFactory
-     */
+    /** @var ErrorHandlerManagerFactory */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->factory = new ErrorHandlerManagerFactory();
     }
@@ -23,7 +21,7 @@ class ErrorHandlerManagerFactoryTest extends TestCase
     /**
      * @test
      */
-    public function serviceIsCreated()
+    public function serviceIsCreated(): void
     {
         $instance = $this->factory->__invoke(new ServiceManager(['services' => [
             'config' => [
