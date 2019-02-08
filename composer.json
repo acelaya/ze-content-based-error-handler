@@ -42,16 +42,20 @@
         "ci": [
             "@cs",
             "@stan",
-            "@test",
-            "@infection"
+            "@test:ci",
+            "@infection:ci"
         ],
 
         "cs": "phpcs",
         "cs:fix": "phpcbf",
         "stan": "phpstan analyse src/ --level=6",
-        "test": "phpdbg -qrr vendor/bin/phpunit --coverage-clover build/clover.xml --colors=always",
+
+        "test": "phpdbg -qrr vendor/bin/phpunit --colors=always",
         "test:pretty": "phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage",
+        "test:ci": "phpdbg -qrr vendor/bin/phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml",
+
         "infection": "phpdbg -qrr vendor/bin/infection --threads=4 --min-msi=80 --log-verbosity=default --only-covered",
+        "infection:ci": "phpdbg -qrr vendor/bin/infection --threads=4 --min-msi=80 --log-verbosity=default --only-covered --coverage=build",
         "infection:show": "phpdbg -qrr vendor/bin/infection --threads=4 --min-msi=80 --log-verbosity=default --only-covered --show-mutations"
     },
     "extra": {

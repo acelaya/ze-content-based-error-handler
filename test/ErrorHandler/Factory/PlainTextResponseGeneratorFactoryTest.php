@@ -37,12 +37,10 @@ class PlainTextResponseGeneratorFactoryTest extends TestCase
         $this->assertEquals($expectedIsDev, $isDev->getValue($instance));
     }
 
-    public function provideDebugs(): array
+    public function provideDebugs(): iterable
     {
-        return [
-            [[], false],
-            [['debug' => true], true],
-            [['debug' => false], false],
-        ];
+        yield [[], false];
+        yield [['debug' => true], true];
+        yield [['debug' => false], false];
     }
 }
