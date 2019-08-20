@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Changed
 
-* [#16](https://github.com/acelaya/ze-content-based-error-handler/issues/16) Added compatibility with expressive 3
+* [#16](https://github.com/acelaya/ze-content-based-error-handler/issues/16) Updated dev dependencies
 
 #### Deprecated
 
