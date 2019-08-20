@@ -8,6 +8,7 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
+
 use const PHP_EOL;
 
 class BasicLogMessageBuilderTest extends TestCase

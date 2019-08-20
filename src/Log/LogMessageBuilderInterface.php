@@ -17,5 +17,5 @@ interface LogMessageBuilderInterface
      * @param \Throwable|null $err
      * @return string
      */
-    public function buildMessage(Request $request, Response $response, Throwable $err = null): string;
+    public function buildMessage(Request $request, Response $response, ?Throwable $err = null): string;
 }

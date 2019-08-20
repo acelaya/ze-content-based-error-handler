@@ -5,6 +5,7 @@ namespace Acelaya\ExpressiveErrorHandler\ErrorHandler;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
+
 use function get_class;
 use function gettype;
 use function is_callable;

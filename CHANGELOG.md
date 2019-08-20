@@ -4,15 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## 3.0.0 - 2019-08-20
 
 #### Added
 
-* [#14](https://github.com/acelaya/ze-content-based-error-handler/issues/14) Added PHP 7.3 to build matrix
+* [#14](https://github.com/acelaya/ze-content-based-error-handler/issues/14) and [#19](https://github.com/acelaya/ze-content-based-error-handler/issues/19) Added PHP 7.3 and 7.4 to build matrix
 
 #### Changed
 
-* [#16](https://github.com/acelaya/ze-content-based-error-handler/issues/16) Added compatibility with expressive 3
+* [#16](https://github.com/acelaya/ze-content-based-error-handler/issues/16) Updated dev dependencies
+* [#21](https://github.com/acelaya/ze-content-based-error-handler/issues/21) Updated to coding standard v1.2
 
 #### Deprecated
 
@@ -20,7 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Removed
 
-* *Nothing*
+* [#18](https://github.com/acelaya/ze-content-based-error-handler/issues/18) Dropped support for PHP 7.1
+* [#20](https://github.com/acelaya/ze-content-based-error-handler/issues/20) Dropped support for Expressive 2
 
 #### Fixed
 
