@@ -17,10 +17,10 @@
         "zendframework/zend-servicemanager": "^3.0"
     },
     "require-dev": {
-        "infection/infection": "^0.13.4",
+        "infection/infection": "^0.14.1",
         "phpstan/phpstan": "^0.11.15",
         "phpunit/phpunit": "^8.3",
-        "shlinkio/php-coding-standard": "~1.2.1",
+        "shlinkio/php-coding-standard": "~2.0.0",
         "zendframework/zend-diactoros": "^2.1.3"
     },
     "authors": [
@@ -55,8 +55,8 @@
         "test:pretty": "phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage --testdox",
         "test:ci": "phpdbg -qrr vendor/bin/phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml --testdox",
 
-        "infect": "infection --threads=4 --min-msi=60 --log-verbosity=default --only-covered",
-        "infect:ci": "infection --threads=4 --min-msi=60 --log-verbosity=default --only-covered --coverage=build",
+        "infect": "infection --threads=4 --min-msi=70 --log-verbosity=default --only-covered",
+        "infect:ci": "infection --threads=4 --min-msi=70 --log-verbosity=default --only-covered --coverage=build",
 
         "infect:test": [
             "@test:ci",
