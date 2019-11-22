@@ -1,3 +1,7 @@
+# :warning: This project is deprecated :warning:
+
+If you need to return different kinds of responses based on the request accepted content type, its easier to pipe different middlewares for every type, and let the next handler to be called if one is not able to generate the response.
+
 # Zend Expressive ContentBasedErrorResponseGenerator
 
 [![Build Status](https://img.shields.io/travis/acelaya/ze-content-based-error-handler/master.svg?style=flat-square)](https://travis-ci.org/acelaya/ze-content-based-error-handler)
